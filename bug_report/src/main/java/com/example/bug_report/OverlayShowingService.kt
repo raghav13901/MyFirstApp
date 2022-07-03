@@ -1,4 +1,4 @@
- package com.example.test_2
+ package com.example.bug_report
 
 import android.app.Service
 import android.content.Intent
@@ -123,10 +123,10 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
 
     override fun onClick(v: View) {
         Log.d(TAG, "onClick: ")
-        val intent = Intent(this, MainActivity3::class.java)
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent)
+//        val intent = Intent(this, MainActivity3::class.java)
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivity(intent)
 
-//        Toast.makeText(this, "Overlay button click event", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Overlay button click event", Toast.LENGTH_SHORT).show()
     }
 }
