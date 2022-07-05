@@ -1,9 +1,13 @@
- package com.example.bug_report
+package com.example.bug_report
 
+import android.R
+import android.annotation.SuppressLint
 import android.app.Service
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.PixelFormat
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -23,7 +27,7 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
     private var offsetY = 0f
     private var originalXPos = 0
     private var originalYPos = 0
-    private var moving = false
+    private var moving = true
     private var wm: WindowManager? = null
     private  val TAG = "OverlayShowingService"
     override fun onBind(intent: Intent): IBinder? {
@@ -34,11 +38,11 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
         super.onCreate()
         wm = getSystemService(WINDOW_SERVICE) as WindowManager
         overlayedButton = Button(this)
-        overlayedButton!!.text = "Overlay button"
-//        overlayedButton!!.setOnTouchListener(this)
-        overlayedButton!!.setBackgroundColor(Color.MAGENTA)
+        overlayedButton!!.setBackgroundColor(Color.rgb(58, 176, 255))
         overlayedButton!!.setOnClickListener(this)
-
+        overlayedButton!!.tag = "Overlay"
+        val img: Drawable = overlayedButton!!.getContext().getResources().getDrawable(R.drawable.stat_notify_chat)
+        overlayedButton!!.setCompoundDrawablesWithIntrinsicBounds(null, img, null, null)
         val LAYOUT_FLAG: Int
         LAYOUT_FLAG = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY
@@ -73,15 +77,16 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
         wm!!.addView(topLeftView, topLeftParams)
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        if (overlayedButton != null) {
-            wm!!.removeView(overlayedButton)
-            wm!!.removeView(topLeftView)
-            overlayedButton = null
-            topLeftView = null
-        }
+        Log.i("Appppp:","Pausedd")
+//        if (overlayedButton != null) {
+//            wm!!.removeView(overlayedButton)
+//            wm!!.removeView(topLeftView)
+//            overlayedButton = null
+//            topLeftView = null
+//        }
+        overlayedButton!!.setVisibility(View.GONE);
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
@@ -123,10 +128,9 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
 
     override fun onClick(v: View) {
         Log.d(TAG, "onClick: ")
-//        val intent = Intent(this, MainActivity3::class.java)
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        startActivity(intent)
-
+        val intent = Intent(this, MainActivity3::class.java)
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent)
         Toast.makeText(this, "Overlay button click event", Toast.LENGTH_SHORT).show()
     }
 }
