@@ -39,8 +39,9 @@ class MyApp : Application() {
             val tag = "App: "
             Log.i(tag,"Pause")
             val intent = Intent(baseContext,OverlayShowingService::class.java)
-            val value = OverlayShowingService()
-            value.onDestroy()
+//            val value = OverlayShowingService()
+//            value.onDestroy()
+            stopService(intent)
         }
 
 

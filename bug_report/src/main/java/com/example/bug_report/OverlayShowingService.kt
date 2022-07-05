@@ -80,13 +80,13 @@ class OverlayShowingService : Service(), OnTouchListener, View.OnClickListener {
     override fun onDestroy() {
         super.onDestroy()
         Log.i("Appppp:","Pausedd")
-//        if (overlayedButton != null) {
-//            wm!!.removeView(overlayedButton)
-//            wm!!.removeView(topLeftView)
-//            overlayedButton = null
-//            topLeftView = null
-//        }
-        overlayedButton!!.setVisibility(View.GONE);
+        if (overlayedButton != null) {
+            wm!!.removeView(overlayedButton)
+            wm!!.removeView(topLeftView)
+            overlayedButton = null
+            topLeftView = null
+        }
+//        overlayedButton!!.setVisibility(View.GONE);
     }
 
     override fun onTouch(v: View, event: MotionEvent): Boolean {
